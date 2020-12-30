@@ -1,0 +1,1 @@
+export const SET_TEXT = "LOCAL/SET_TEXT";
