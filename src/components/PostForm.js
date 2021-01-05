@@ -15,7 +15,7 @@ class PostForm extends React.Component {
 
   submitButton = (e) => {
     e.preventDefault();
-    if (!this.state.text) return;
+    if (!this.state.text.trim()) return;
     this.props.setText(this.state.text);
 
     this.setState({ text: '' });

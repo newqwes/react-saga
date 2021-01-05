@@ -1,25 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Post from './Post';
+import { getPosts } from '../redux/actions';
 
 const Posts = (props) => {
-  let items = props.posts;
+  let posts = props.posts;
 
-  if (props.fetch) items = props.fetchPosts;
+  if (props.fetch) posts = props.serverPosts;
 
-  if (!items.length && props.fetch) {
+  if (!posts.length && props.fetch) {
     return (
-      <button type='button' className='btn btn-primary'>
+      <button type='button' className='btn btn-primary' onClick={props.getPosts}>
         Get
       </button>
     );
   }
-  return items.map((post) => <Post post={post} key={post.id} />);
+
+  return posts.map((post) => <Post post={post} key={post.id} />);
 };
 
 const mapStateToProps = (state) => ({
   posts: state.postsReducer.posts,
-  fetchPosts: state.postsReducer.fetchPosts,
+  serverPosts: state.postsReducer.serverPosts,
 });
 
-export default connect(mapStateToProps, null)(Posts);
+const mapDispatchToProps = {
+  getPosts,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);

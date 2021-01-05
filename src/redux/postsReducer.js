@@ -1,8 +1,8 @@
-import { SET_TEXT } from './types';
+import { SET_TEXT, FETCH_POSTS } from './types';
 
 const initialState = {
   posts: [],
-  fetchPosts: [],
+  serverPosts: [],
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -10,7 +10,12 @@ export const postsReducer = (state = initialState, action) => {
     case SET_TEXT:
       return {
         ...state,
-        posts: [...state.posts, { id: Date.now(), text: action.payload }],
+        posts: [...state.posts, { id: Date.now(), title: action.payload }],
+      };
+    case FETCH_POSTS:
+      return {
+        ...state,
+        serverPosts: action.payload,
       };
     default:
       return state;
